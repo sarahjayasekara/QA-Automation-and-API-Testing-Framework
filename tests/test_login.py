@@ -1,23 +1,16 @@
-import sys
-import os
+from selenium import webdriver
 import time
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+driver = webdriver.Chrome()
 
-from utils.driver_setup import get_driver
+driver.get("https://www.saucedemo.com")
 
-#1. Initialize the driver using your utility function
+driver.find_element("id", "user-name").send_keys("standard_user")
 
-driver = get_driver()
+driver.find_element("id", "password").send_keys("secret_sauce")
 
-try:
+driver.find_element("id", "login-button").click()
 
-    #2. Navigate to google
-    driver.get("https://www.google.com")
+time.sleep(5)
 
-    #.3. Wait for a few seconds to observe the browser,verify it loaded successfully
-    time.sleep(5)
-
-finally:
-    #4. clean up and Close the browser safely
-    driver.quit()
+driver.quit()
